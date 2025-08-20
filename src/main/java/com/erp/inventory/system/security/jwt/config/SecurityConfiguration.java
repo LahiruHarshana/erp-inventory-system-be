@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/products/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/categories/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/suppliers/**").hasAnyAuthority("ROLE_SUPPLY_CHAIN_COORDINATOR", "ROLE_ADMIN")
-                        .requestMatchers("/api/v1/warehouses/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
+                        .requestMatchers("/api/v1/warehouses/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "")
                         .requestMatchers("/api/v1/inventory/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
