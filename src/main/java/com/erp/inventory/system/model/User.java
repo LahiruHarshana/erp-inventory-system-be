@@ -23,6 +23,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
     private String firstname;
     private String lastname;
     @Column(unique = true, nullable = false)
@@ -33,6 +37,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
