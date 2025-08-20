@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                         // Secure other endpoints based on roles
                         .requestMatchers("/api/v1/inventory/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/supply-chain/**").hasAnyAuthority("ROLE_SUPPLY_CHAIN_COORDINATOR", "ROLE_ADMIN")
-                        .requestMatchers("/api/v1/business/**").hasAnyAuthority("ROLE_BUSINESS_OWNER", "ROLE_ADMIN")
+                        .requestMatchers("/api/v1/stores/**").hasAnyAuthority("ROLE_BUSINESS_OWNER", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
