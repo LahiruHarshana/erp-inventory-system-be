@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -32,7 +33,7 @@ public class PurchaseOrder {
     private BigDecimal totalAmount;
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
-    private Set<PurchaseOrderItem> orderItems;
+    private List<PurchaseOrderItem> orderItems;
 
     @OneToOne(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Payment payment;
