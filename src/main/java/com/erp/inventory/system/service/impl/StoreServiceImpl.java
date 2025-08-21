@@ -29,7 +29,7 @@ public class StoreServiceImpl implements StoreService {
         store.setStoreRegistrationNumber(storeDto.getStoreRegistrationNumber());
         store.setTaxId(storeDto.getTaxId());
         store.setOperationalDetails(storeDto.getOperationalDetails());
-        store.setVerified(false);
+        store.setVerified(true);
 
         Store savedStore = storeRepository.save(store);
 

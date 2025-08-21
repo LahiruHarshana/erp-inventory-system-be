@@ -1,6 +1,6 @@
 package com.erp.inventory.system.service.impl;
 
-import com.erp.inventory.system.controller.CategoryDto;
+import com.erp.inventory.system.dto.CategoryDto;
 import com.erp.inventory.system.model.Category;
 import com.erp.inventory.system.repository.CategoryRepository;
 import com.erp.inventory.system.service.CategoryService;
@@ -38,7 +38,6 @@ public class CategoryServiceImpl implements CategoryService {
         if (!categoryRepository.existsById(id)) {
             throw new EntityNotFoundException("Category not found with id: " + id);
         }
-        // Add logic here to check if category is in use before deleting
         categoryRepository.deleteById(id);
     }
 

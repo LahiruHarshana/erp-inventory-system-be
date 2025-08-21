@@ -1,5 +1,6 @@
 package com.erp.inventory.system.controller;
 
+import com.erp.inventory.system.dto.CategoryDto;
 import com.erp.inventory.system.service.CategoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @Tag(name = "3. Category Management", description = "APIs for managing product categories")
 public class CategoryController {
 

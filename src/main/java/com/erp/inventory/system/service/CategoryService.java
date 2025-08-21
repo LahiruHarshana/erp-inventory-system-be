@@ -1,6 +1,6 @@
 package com.erp.inventory.system.service;
 
-import com.erp.inventory.system.controller.CategoryDto;
+import com.erp.inventory.system.dto.CategoryDto;
 
 import java.util.List;
 

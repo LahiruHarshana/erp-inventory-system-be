@@ -3,6 +3,7 @@ package com.erp.inventory.system.security.jwt.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod; // <-- Import HttpMethod
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,7 +33,7 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        // Secure other endpoints based on roles
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/v1/inventory/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/supply-chain/**").hasAnyAuthority("ROLE_SUPPLY_CHAIN_COORDINATOR", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/stores/**").hasAnyAuthority("ROLE_BUSINESS_OWNER", "ROLE_ADMIN")
@@ -41,7 +42,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/categories/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/suppliers/**").hasAnyAuthority("ROLE_SUPPLY_CHAIN_COORDINATOR", "ROLE_ADMIN")
                         .requestMatchers("/api/v1/warehouses/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
-                        .requestMatchers("/api/v1/inventory/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

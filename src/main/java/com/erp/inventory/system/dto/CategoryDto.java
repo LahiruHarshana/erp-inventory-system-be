@@ -1,4 +1,4 @@
-package com.erp.inventory.system.controller;
+package com.erp.inventory.system.dto;
 
 import lombok.Data;
 
