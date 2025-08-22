@@ -1,5 +1,6 @@
 package com.erp.inventory.system.service;
 
+import com.erp.inventory.system.dto.PaymentDto;
 import com.erp.inventory.system.dto.PurchaseOrderDto;
 import com.erp.inventory.system.model.OrderStatus;
 
@@ -10,4 +11,6 @@ public interface PurchaseOrderService {
     PurchaseOrderDto getPurchaseOrderById(Long id);
     List<PurchaseOrderDto> getAllPurchaseOrders();
     PurchaseOrderDto updateOrderStatus(Long id, OrderStatus status);
+    void receivePurchaseOrder(Long orderId, Long warehouseId);
+    void makePayment(Long orderId, PaymentDto paymentDto);
 }

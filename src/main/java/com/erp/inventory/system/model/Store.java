@@ -28,7 +28,4 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private Set<User> employees;
-
-    @OneToMany(mappedBy = "store")
-    private Set<Warehouse> warehouses;
 }

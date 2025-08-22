@@ -21,10 +21,6 @@ public class Warehouse {
 
     private String location;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
-
     @OneToMany(mappedBy = "warehouse")
     private Set<Inventory> inventoryItems;
 }

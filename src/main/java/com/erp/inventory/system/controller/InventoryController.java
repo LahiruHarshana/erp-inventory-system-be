@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/inventory")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @Tag(name = "7. Inventory Management", description = "APIs for managing stock levels")
 public class InventoryController {
 

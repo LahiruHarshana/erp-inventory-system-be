@@ -1,5 +1,6 @@
 package com.erp.inventory.system.controller;
 
+import com.erp.inventory.system.dto.SupplierDto;
 import com.erp.inventory.system.dto.WarehouseDto;
 import com.erp.inventory.system.service.WarehouseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/warehouses")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @Tag(name = "6. Warehouse Management", description = "APIs for managing warehouses")
 public class WarehouseController {
@@ -31,10 +33,10 @@ public class WarehouseController {
         return ResponseEntity.ok(warehouseService.getWarehouseById(id));
     }
 
-    @GetMapping("/store/{storeId}")
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN', 'ROLE_BUSINESS_OWNER')")
-    public ResponseEntity<List<WarehouseDto>> getAllWarehousesByStore(@PathVariable Long storeId) {
-        return ResponseEntity.ok(warehouseService.getAllWarehousesByStore(storeId));
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_SUPPLY_CHAIN_COORDINATOR')")
+    public ResponseEntity<List<WarehouseDto>> getWarehouses() {
+        return ResponseEntity.ok(warehouseService.getWarehouses());
     }
 
     @PutMapping("/{id}")

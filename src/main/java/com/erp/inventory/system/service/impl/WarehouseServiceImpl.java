@@ -22,13 +22,13 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public WarehouseDto createWarehouse(WarehouseDto warehouseDto) {
-        Store store = storeRepository.findById(warehouseDto.getStoreId())
-                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + warehouseDto.getStoreId()));
+//        Store store = storeRepository.findById(warehouseDto.getStoreId())
+//                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + warehouseDto.getStoreId()));
 
         Warehouse warehouse = new Warehouse();
         warehouse.setName(warehouseDto.getName());
         warehouse.setLocation(warehouseDto.getLocation());
-        warehouse.setStore(store);
+//        warehouse.setStore(store);
 
         Warehouse savedWarehouse = warehouseRepository.save(warehouse);
         return mapToDto(savedWarehouse);
@@ -41,15 +41,6 @@ public class WarehouseServiceImpl implements WarehouseService {
         return mapToDto(warehouse);
     }
 
-    @Override
-    public List<WarehouseDto> getAllWarehousesByStore(Long storeId) {
-        if (!storeRepository.existsById(storeId)) {
-            throw new EntityNotFoundException("Store not found with id: " + storeId);
-        }
-        return warehouseRepository.findByStoreId(storeId).stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public WarehouseDto updateWarehouse(Long id, WarehouseDto warehouseDto) {
@@ -58,10 +49,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 
         existingWarehouse.setName(warehouseDto.getName());
         existingWarehouse.setLocation(warehouseDto.getLocation());
-        // Note: Changing the store of a warehouse might have complex implications, handled here simply.
-        Store store = storeRepository.findById(warehouseDto.getStoreId())
-                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + warehouseDto.getStoreId()));
-        existingWarehouse.setStore(store);
+//        // Note: Changing the store of a warehouse might have complex implications, handled here simply.
+//        Store store = storeRepository.findById(warehouseDto.getStoreId())
+//                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + warehouseDto.getStoreId()));
+//        existingWarehouse.setStore(store);
 
         Warehouse updatedWarehouse = warehouseRepository.save(existingWarehouse);
         return mapToDto(updatedWarehouse);
@@ -75,12 +66,18 @@ public class WarehouseServiceImpl implements WarehouseService {
         warehouseRepository.deleteById(id);
     }
 
+    @Override
+    public List<WarehouseDto> getWarehouses() {
+        return warehouseRepository.findAll().stream().map(this::mapToDto).collect(Collectors.toList());
+
+    }
+
     private WarehouseDto mapToDto(Warehouse warehouse) {
         WarehouseDto dto = new WarehouseDto();
         dto.setId(warehouse.getId());
         dto.setName(warehouse.getName());
         dto.setLocation(warehouse.getLocation());
-        dto.setStoreId(warehouse.getStore().getId());
+//        dto.setStoreId(warehouse.getStore().getId());
         return dto;
     }
 }

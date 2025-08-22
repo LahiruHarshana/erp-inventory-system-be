@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/suppliers")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @Tag(name = "5. Supplier Management", description = "APIs for managing suppliers")
 public class SupplierController {
 
@@ -32,7 +33,7 @@ public class SupplierController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_SUPPLY_CHAIN_COORDINATOR','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<List<SupplierDto>> getAllSuppliers() {
         return ResponseEntity.ok(supplierService.getAllSuppliers());
     }
