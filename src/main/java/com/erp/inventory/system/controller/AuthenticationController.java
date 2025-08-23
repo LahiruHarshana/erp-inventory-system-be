@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RequiredArgsConstructor
 @Tag(name = "1. Authentication", description = "APIs for User Registration and Login")
 public class AuthenticationController {
