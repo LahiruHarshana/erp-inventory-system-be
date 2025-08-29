@@ -18,8 +18,12 @@ public class Payment {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "purchase_order_id", nullable = false)
+    @JoinColumn(name = "purchase_order_id")
     private PurchaseOrder purchaseOrder;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sales_order_id")
+    private SalesOrder salesOrder;
 
     private BigDecimal amount;
     private LocalDateTime paymentDate;

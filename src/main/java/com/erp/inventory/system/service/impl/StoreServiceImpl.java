@@ -67,6 +67,7 @@ public class StoreServiceImpl implements StoreService {
         existingStore.setStoreRegistrationNumber(storeDto.getStoreRegistrationNumber());
         existingStore.setTaxId(storeDto.getTaxId());
         existingStore.setOperationalDetails(storeDto.getOperationalDetails());
+        existingStore.setVerified(storeDto.isVerified());
         // Note: Verification status is not updated here. It should be a separate admin process.
 
         Store updatedStore = storeRepository.save(existingStore);

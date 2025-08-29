@@ -7,6 +7,7 @@ public class ProductDto {
     private Long id;
     private String sku;
     private String name;
+    private String image;
     private String description;
     private Long categoryId;
     private Long supplierId;

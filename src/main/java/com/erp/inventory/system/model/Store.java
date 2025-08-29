@@ -28,4 +28,9 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private Set<User> employees;
+
+    @OneToMany(mappedBy = "buyerStore", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SalesOrder> salesOrders;
+
+
 }

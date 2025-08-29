@@ -34,7 +34,7 @@ public class StoreController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_BUSINESS_OWNER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_BUSINESS_OWNER', 'ROLE_ADMIN','ROLE_SUPPLY_CHAIN_COORDINATOR')")
     public ResponseEntity<List<StoreDto>> getAllStores() {
         return ResponseEntity.ok(storeService.getAllStores());
     }

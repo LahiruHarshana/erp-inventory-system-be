@@ -21,6 +21,7 @@ public class Warehouse {
 
     private String location;
 
-    @OneToMany(mappedBy = "warehouse")
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Inventory> inventoryItems;
+
 }

@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         product.setSku(productDto.getSku());
         product.setName(productDto.getName());
+        product.setImage(productDto.getImage());
         product.setDescription(productDto.getDescription());
         product.setCategory(category);
         product.setSupplier(supplier);
@@ -72,9 +73,11 @@ public class ProductServiceImpl implements ProductService {
 
         existingProduct.setName(productDto.getName());
         existingProduct.setDescription(productDto.getDescription());
+        existingProduct.setImage(productDto.getImage());
         existingProduct.setCategory(category);
         existingProduct.setSupplier(supplier);
         existingProduct.setUnitPrice(productDto.getUnitPrice());
+        existingProduct.setSku(productDto.getSku());
 
         Product updatedProduct = productRepository.save(existingProduct);
         return mapToDto(updatedProduct);
@@ -93,6 +96,7 @@ public class ProductServiceImpl implements ProductService {
         dto.setId(product.getId());
         dto.setSku(product.getSku());
         dto.setName(product.getName());
+        dto.setImage(product.getImage());
         dto.setDescription(product.getDescription());
         dto.setCategoryId(product.getCategory().getId());
         dto.setSupplierId(product.getSupplier().getId());
