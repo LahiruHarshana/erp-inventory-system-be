@@ -25,7 +25,7 @@ public class SalesRecordController {
     private final SalesRecordService salesRecordService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Get sales records", description = "Retrieves sales records for a date range with store, product, and sales data.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Sales records retrieved successfully"),

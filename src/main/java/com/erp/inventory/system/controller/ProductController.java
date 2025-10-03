@@ -21,31 +21,31 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
         return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN', 'ROLE_INVENTORY_STAFF')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN', 'ROLE_INVENTORY_STAFF','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_SUPPLY_CHAIN_COORDINATOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_SUPPLY_CHAIN_COORDINATOR','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();

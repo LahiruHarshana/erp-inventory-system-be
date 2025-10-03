@@ -26,31 +26,31 @@ public class PurchaseOrderController {
     private final PurchaseOrderService purchaseOrderService;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<PurchaseOrderDto> createPurchaseOrder(@RequestBody PurchaseOrderDto purchaseOrderDto) {
         return new ResponseEntity<>(purchaseOrderService.createPurchaseOrder(purchaseOrderDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<PurchaseOrderDto> getPurchaseOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(purchaseOrderService.getPurchaseOrderById(id));
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<List<PurchaseOrderDto>> getAllPurchaseOrders() {
         return ResponseEntity.ok(purchaseOrderService.getAllPurchaseOrders());
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<PurchaseOrderDto> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
         return ResponseEntity.ok(purchaseOrderService.updateOrderStatus(id, status));
     }
 
     @PostMapping("/{id}/receive")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Receive a purchase order", description = "Marks a purchase order as received and updates inventory quantities in the specified warehouse.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Purchase order received and inventory updated successfully"),
@@ -63,7 +63,7 @@ public class PurchaseOrderController {
     }
 
     @PostMapping("/{id}/payment")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Process payment for a purchase order", description = "Creates a payment record for a received purchase order.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Payment processed successfully"),

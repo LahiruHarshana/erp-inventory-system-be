@@ -20,19 +20,19 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @PostMapping("/stock")
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<InventoryDto> updateStock(@RequestBody InventoryDto inventoryDto) {
         return ResponseEntity.ok(inventoryService.updateStock(inventoryDto));
     }
 
     @GetMapping("/stock")
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<InventoryDto> getStock(@RequestParam Long productId, @RequestParam Long warehouseId) {
         return ResponseEntity.ok(inventoryService.getStock(productId, warehouseId));
     }
 
     @GetMapping("/warehouse/{warehouseId}")
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<List<InventoryDto>> getInventoryByWarehouse(@PathVariable Long warehouseId) {
         return ResponseEntity.ok(inventoryService.getInventoryByWarehouse(warehouseId));
     }

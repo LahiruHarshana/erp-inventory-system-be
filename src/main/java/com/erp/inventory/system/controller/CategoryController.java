@@ -21,7 +21,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
         return new ResponseEntity<>(categoryService.createCategory(categoryDto), HttpStatus.CREATED);
     }
@@ -33,7 +33,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();

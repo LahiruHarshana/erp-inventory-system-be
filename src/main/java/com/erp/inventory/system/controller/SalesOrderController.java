@@ -27,7 +27,7 @@ public class SalesOrderController {
     private final SalesOrderService salesOrderService;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Place a new sales order", description = "Creates a sales order for a buyer store, deducting stock from the specified warehouse.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Sales order placed successfully"),
@@ -40,7 +40,7 @@ public class SalesOrderController {
     }
 
     @PostMapping("/{id}/ship")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Ship a sales order", description = "Marks a sales order as shipped.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Order shipped successfully"),
@@ -53,7 +53,7 @@ public class SalesOrderController {
     }
 
     @PostMapping("/{id}/payment")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Process payment for a sales order", description = "Records payment for a shipped sales order.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Payment processed successfully"),
@@ -66,7 +66,7 @@ public class SalesOrderController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Get sales order by ID", description = "Retrieves a specific sales order by its ID.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Order retrieved successfully"),
@@ -77,7 +77,7 @@ public class SalesOrderController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN', 'ROLE_INVENTORY_MANAGER','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Get all sales orders", description = "Retrieves a list of all sales orders.")
     @ApiResponse(responseCode = "200", description = "List of orders retrieved successfully")
     public ResponseEntity<List<SalesOrderDto>> getAllSalesOrders() {
@@ -85,7 +85,7 @@ public class SalesOrderController {
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     @Operation(summary = "Update sales order status", description = "Updates the status of a sales order (e.g., PENDING, CANCELLED).")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Order status updated successfully"),

@@ -21,7 +21,7 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<SupplierDto> createSupplier(@RequestBody SupplierDto supplierDto) {
         return new ResponseEntity<>(supplierService.createSupplier(supplierDto), HttpStatus.CREATED);
     }
@@ -39,13 +39,13 @@ public class SupplierController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<SupplierDto> updateSupplier(@PathVariable Long id, @RequestBody SupplierDto supplierDto) {
         return ResponseEntity.ok(supplierService.updateSupplier(id, supplierDto));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<Void> deleteSupplier(@PathVariable Long id) {
         supplierService.deleteSupplier(id);
         return ResponseEntity.noContent().build();
