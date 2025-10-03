@@ -30,14 +30,21 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .firstname(request.getFirstname())
+                .username(request.getEmail()) // Assuming username is the email
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
+
         repository.save(user);
+
         var jwtToken = jwtUtil.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .role(user.getRole())
+                .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -46,6 +53,10 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtUtil.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .role(user.getRole())
+                .build();
     }
 }

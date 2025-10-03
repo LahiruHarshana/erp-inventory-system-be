@@ -2,22 +2,24 @@ package com.erp.inventory.system.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1")
 public class DemoController {
 
     @GetMapping("/inventory/data")
-    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_INVENTORY_MANAGER', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<String> getInventoryData() {
         return ResponseEntity.ok("Access Granted: This is sensitive inventory data.");
     }
 
     @GetMapping("/supply-chain/logistics")
-    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_SUPPLY_CHAIN_COORDINATOR', 'ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<String> getLogistics() {
         return ResponseEntity.ok("Access Granted: This is supply chain logistics information.");
     }
@@ -29,7 +31,7 @@ public class DemoController {
     }
 
     @GetMapping("/admin/panel")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_BUSINESS_OWNER')")
     public ResponseEntity<String> getAdminPanel() {
         return ResponseEntity.ok("Welcome to the Admin Panel.");
     }

@@ -3,6 +3,7 @@ package com.erp.inventory.system.security.jwt.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod; // <-- Import HttpMethod
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,11 +33,18 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        // Secure other endpoints based on roles
-                        .requestMatchers("/api/v1/inventory/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN")
-                        .requestMatchers("/api/v1/supply-chain/**").hasAnyAuthority("ROLE_SUPPLY_CHAIN_COORDINATOR", "ROLE_ADMIN")
-                        .requestMatchers("/api/v1/business/**").hasAnyAuthority("ROLE_BUSINESS_OWNER", "ROLE_ADMIN")
-                        .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api/v1/inventory/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/supply-chain/**").hasAnyAuthority("ROLE_SUPPLY_CHAIN_COORDINATOR", "ROLE_ADMIN","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/stores/**").hasAnyAuthority("ROLE_BUSINESS_OWNER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR")
+                        .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/products/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/categories/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/suppliers/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/warehouses/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/reports/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/sales-orders/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
+                        .requestMatchers("/api/v1/sales-records/**").hasAnyAuthority("ROLE_INVENTORY_MANAGER", "ROLE_ADMIN","ROLE_SUPPLY_CHAIN_COORDINATOR","ROLE_BUSINESS_OWNER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
